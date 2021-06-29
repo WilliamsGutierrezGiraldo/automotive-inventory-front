@@ -1,10 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { ErrorPageComponent } from './shared/error-page/error-page.component';
+
+const routes: Routes = [
+  {
+    path:'inventory',
+    loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule)
+  },
+  {
+    path:'404',
+    component: ErrorPageComponent
+  },
+  {
+    path:'**',
+    redirectTo: '404'
+  }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot( routes )
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }
